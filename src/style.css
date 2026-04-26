@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-roke-purple: #4a148c;
+  --color-roke-gold: #ffd700;
+  --color-roke-magic: #7c4dff;
+  --color-roke-dark: #1a0a2e;
+}
+
+@font-face {
+  font-family: 'RokeRune';
+  src: url('https://game.gtimg.cn/images/rocom/web202507/font-origin/RUNEREGULAR.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1a0a2e;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #2a1a3e 0%, #0a0515 100%);
+}
+
+#app {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Custom styles for the translator */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+}
+
+.magic-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.magic-border::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, #7c4dff, transparent 25%);
+  animation: rotate 4s linear infinite;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rune-text {
+  font-family: 'RokeRune', 'Courier New', Courier, monospace;
+  font-size: 2.5rem;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
