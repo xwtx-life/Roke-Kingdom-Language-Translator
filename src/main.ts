@@ -38,53 +38,53 @@ function translateToNormal(text: string): string {
 const app = document.querySelector<HTMLDivElement>('#app')!
 
 app.innerHTML = `
-  <div class="min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-4xl p-8 shadow-2xl relative overflow-hidden">
+  <div class="min-h-screen flex flex-col items-center justify-center p-2 md:p-4">
+    <div class="glass-panel w-full max-w-4xl p-5 md:p-10 shadow-2xl relative overflow-hidden">
       <div class="absolute -top-24 -left-24 w-48 h-48 bg-roke-magic opacity-10 rounded-full blur-3xl"></div>
       <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-roke-gold opacity-10 rounded-full blur-3xl"></div>
       
-      <header class="text-center mb-10">
-        <h1 class="text-4xl md:text-5xl font-bold text-roke-gold mb-4 tracking-wider">
+      <header class="text-center mb-8 md:mb-12">
+        <h1 class="text-3xl md:text-5xl font-bold text-roke-gold mb-3 md:mb-4 tracking-wider">
           洛克语翻译器
         </h1>
-        <p class="text-roke-magic font-medium tracking-widest opacity-80 uppercase rune-text text-sm">
+        <p class="text-roke-magic font-medium tracking-widest opacity-80 uppercase rune-text text-xs md:text-sm">
           ᚱᛟᚲᛖ ᚲᛁᚾᚷᛞᛟᛗ ᚱᚠᚲᛖ ᚲᛁᛈᚻᛖᚱ
         </p>
       </header>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
-        <div class="flex flex-col gap-4 w-full text-left">
-          <label class="text-sm font-semibold text-roke-gold/60 uppercase tracking-widest ml-1 text-left flex justify-between">
-            <span>输入文字 (中文将自动译为英文)</span>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 relative items-start">
+        <div class="flex flex-col gap-3 w-full text-left">
+          <label class="text-xs md:text-sm font-semibold text-roke-gold/60 uppercase tracking-widest ml-1 text-left flex justify-between items-center">
+            <span>输入文字 (支持中英文)</span>
             <span id="translatingStatus" class="text-[10px] opacity-0 text-roke-magic transition-opacity italic">正在施放翻译魔法...</span>
           </label>
           <textarea 
             id="input" 
             placeholder="在此输入你想说的话..." 
-            class="w-full h-48 lg:h-80 bg-black/40 border border-white/10 rounded-2xl p-6 text-lg focus:outline-none focus:ring-2 focus:ring-roke-magic/50 transition-all resize-none placeholder:text-white/10 shadow-inner"
+            class="w-full h-40 md:h-80 bg-black/40 border border-white/10 rounded-2xl p-5 md:p-6 text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-roke-magic/50 transition-all resize-none placeholder:text-white/10 shadow-inner"
           ></textarea>
-          <div class="flex flex-wrap gap-2 mt-2">
-            <span class="text-xs text-white/40 self-center mr-2">常用词:</span>
-            <button class="quick-phrase px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-xs transition-colors border border-white/5">洛克王国</button>
-            <button class="quick-phrase px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-xs transition-colors border border-white/5">魔法学院</button>
-            <button class="quick-phrase px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-xs transition-colors border border-white/5">宠物捕捉</button>
+          <div class="flex flex-wrap gap-2 mt-1 md:mt-2">
+            <span class="text-[10px] md:text-xs text-white/40 self-center mr-1">常用词:</span>
+            <button class="quick-phrase px-2 md:px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-[10px] md:text-xs transition-colors border border-white/5">洛克王国</button>
+            <button class="quick-phrase px-2 md:px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-[10px] md:text-xs transition-colors border border-white/5">魔法学院</button>
+            <button class="quick-phrase px-2 md:px-3 py-1 bg-white/5 hover:bg-white/10 rounded-full text-[10px] md:text-xs transition-colors border border-white/5">宠物捕捉</button>
           </div>
         </div>
 
-        <div class="flex flex-col gap-4 w-full mt-8 lg:mt-0 text-left">
-          <label class="text-sm font-semibold text-roke-gold/60 uppercase tracking-widest ml-1">
+        <div class="flex flex-col gap-3 w-full mt-6 lg:mt-0 text-left">
+          <label class="text-xs md:text-sm font-semibold text-roke-gold/60 uppercase tracking-widest ml-1">
             洛克语 / Roke Language
           </label>
-          <div class="relative group h-48 lg:h-80">
+          <div class="relative group h-40 md:h-80">
             <canvas id="particleCanvas" class="absolute inset-0 pointer-events-none z-10 rounded-2xl"></canvas>
             <textarea 
               id="output" 
               readonly
               placeholder="ᚠᛒᚲᛞ..." 
-              class="w-full h-full bg-black/40 border border-white/10 rounded-2xl p-6 text-2xl rune-text text-roke-magic focus:outline-none resize-none placeholder:text-white/5 cursor-default shadow-inner relative z-0"
+              class="w-full h-full bg-black/40 border border-white/10 rounded-2xl p-5 md:p-6 text-xl md:text-2xl rune-text text-roke-magic focus:outline-none resize-none placeholder:text-white/5 cursor-default shadow-inner relative z-0"
             ></textarea>
-            <div class="absolute bottom-4 right-4 flex gap-2 z-20">
-              <button id="copyBtn" class="bg-roke-gold text-roke-dark px-4 py-2 rounded-lg font-bold hover:scale-105 active:scale-95 transition-transform shadow-lg">
+            <div class="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex gap-2 z-20">
+              <button id="copyBtn" class="bg-roke-gold text-roke-dark px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-bold hover:scale-105 active:scale-95 transition-transform shadow-lg">
                 复制结果
               </button>
             </div>
@@ -92,37 +92,37 @@ app.innerHTML = `
         </div>
       </div>
 
-      <div class="mt-16 bg-white/5 rounded-3xl p-8 border border-white/5 shadow-2xl">
-        <h3 class="text-roke-gold text-lg font-bold mb-6 tracking-widest uppercase text-center flex items-center justify-center gap-3">
-          <span class="h-px w-8 bg-roke-gold/30"></span>
+      <div class="mt-10 md:mt-16 bg-white/5 rounded-2xl md:rounded-3xl p-5 md:p-8 border border-white/5 shadow-2xl">
+        <h3 class="text-roke-gold text-base md:text-lg font-bold mb-5 md:mb-8 tracking-widest uppercase text-center flex items-center justify-center gap-2 md:gap-3">
+          <span class="h-px w-6 md:w-8 bg-roke-gold/30"></span>
           洛克语字符对照表
-          <span class="h-px w-8 bg-roke-gold/30"></span>
+          <span class="h-px w-6 md:w-8 bg-roke-gold/30"></span>
         </h3>
-        <div id="runeTable" class="grid grid-cols-4 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-13 gap-4"></div>
+        <div id="runeTable" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-13 gap-3 md:gap-4"></div>
       </div>
 
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 text-left border-t border-white/5 pt-12">
-        <div class="space-y-4">
-          <h3 class="text-roke-gold text-xl font-bold flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-roke-magic"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <div class="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 text-left border-t border-white/5 pt-10 md:pt-12">
+        <div class="space-y-3 md:space-y-4">
+          <h3 class="text-roke-gold text-lg md:text-xl font-bold flex items-center gap-2 md:gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-roke-magic md:w-5 md:h-5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             什么是洛克语？
           </h3>
-          <p class="text-base text-white/60 leading-relaxed">
+          <p class="text-sm md:text-base text-white/60 leading-relaxed">
             洛克语是洛克王国中神秘的古老文字。本工具支持自动将中文翻译为英文后再转换为符文，还原最正宗的游戏韵味。
           </p>
         </div>
-        <div class="space-y-4">
-          <h3 class="text-roke-gold text-xl font-bold flex items-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-roke-magic"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        <div class="space-y-3 md:space-y-4">
+          <h3 class="text-roke-gold text-lg md:text-xl font-bold flex items-center gap-2 md:gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-roke-magic md:w-5 md:h-5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
             支持解密吗？
           </h3>
-          <p class="text-base text-white/60 leading-relaxed">
+          <p class="text-sm md:text-base text-white/60 leading-relaxed">
             支持双向转换。粘贴洛克语符号，系统将自动识别其编码并还原为对应的英文含义。
           </p>
         </div>
       </div>
 
-      <footer class="mt-16 text-center text-white/20 text-xs border-t border-white/5 pt-8">
+      <footer class="mt-10 md:mt-16 text-center text-white/20 text-[10px] md:text-xs border-t border-white/5 pt-8">
         <p>本站仅供洛克王国爱好者交流学习使用，不代表官方立场。</p>
       </footer>
     </div>
